@@ -1,8 +1,9 @@
+
 **ChartJs Test(responsive)**
 
 url: https://christopherkekzijing.github.io/chartjs-test/
 
-![chartjs-test](https://user-images.githubusercontent.com/64301114/132090376-981bede0-6d7e-4be6-a01a-f01de1e9b62e.jpg)
+![chartjs-test](https://user-images.githubusercontent.com/64301114/132092171-6774b945-9fcb-4798-b169-c0847f2b30e2.jpg)
 
 Data from 
 * https://jsonplaceholder.typicode.com/posts
