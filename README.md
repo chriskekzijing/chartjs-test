@@ -6,7 +6,7 @@ url: https://christopherkekzijing.github.io/chartjs-test/
 
 ![chartjs-test](https://user-images.githubusercontent.com/64301114/132096178-59cfc6f1-cbcd-4de7-bbb5-f6e057cb14af.jpg)
 
-**Data from **
+**Data from**
 * https://jsonplaceholder.typicode.com/posts
 * https://jsonplaceholder.typicode.com/users
 
