@@ -106,7 +106,7 @@ async function chart(postsArraySorted, labels) {
     dataArray.push({
       x: post[0].userId,
       y: post.length,
-      posts: post,
+      posts: post.reverse(),
     });
   });
 
