@@ -4,6 +4,7 @@ let loading = document.getElementById("loading");
 let error = document.getElementById("error");
 let postList = document.querySelector(".chart-test_post-details");
 let postDetailsHeader = document.querySelector(".chart-test_post-header");
+let userDetailsHeader = document.querySelector(".chart-test_post-user");
 let btn = document.querySelector(".chart-test_post-button");
 let btnCollapse = document.querySelector(".chart-test_post-button-collapse");
 let sortedData = [];
@@ -71,7 +72,7 @@ async function getPosts() {
     let postsArraySorted = Object.values(postsObjects);
     sortedData = postsArraySorted;
 
-    chart(postsArraySorted, labels);
+    chart(postsArraySorted, labels, usersData);
   } else {
     body.style.display = "none";
     error.style.display = "block";
@@ -99,7 +100,7 @@ function arrayToString(data) {
 }
 
 //chart start
-async function chart(postsArraySorted, labels) {
+async function chart(postsArraySorted, labels, usersData) {
   let dataArray = [];
 
   postsArraySorted.map((post) => {
@@ -107,16 +108,25 @@ async function chart(postsArraySorted, labels) {
       x: post[0].userId,
       y: post.length,
       posts: post.reverse(),
+      user: usersData.find((user) => user.id === post[0].userId),
     });
   });
 
   //set default post and title
   function defaultPostsList() {
-    let defaultData = postsArraySorted[0].slice(0, 5);
+    let defaultData = dataArray[0].posts.slice(0, 5);
+    let defaultUser = dataArray[0].user;
     let listString = arrayToString(defaultData);
-    let headerString = `<h3>Posts Details (User Id: ${defaultData[0].userId})</h3>`;
+    let userHeaderString = `
+              <h3>User Details</h3>
+              <p><strong>Name:</strong> ${defaultUser?.name}</p>
+              <p><strong>Email:</strong>  ${defaultUser?.email}</p>
+              <p><strong>Phone:</strong>  ${defaultUser?.phone}</p>
+              <p><strong>City:</strong>  ${defaultUser?.address?.city}</p>
+              <p><strong>Website:</strong>  ${defaultUser?.website}</p>
+              `;
     postList.insertAdjacentHTML("afterbegin", listString);
-    postDetailsHeader.insertAdjacentHTML("afterbegin", headerString);
+    userDetailsHeader.insertAdjacentHTML("afterbegin", userHeaderString);
   }
   defaultPostsList();
 
@@ -124,23 +134,38 @@ async function chart(postsArraySorted, labels) {
     //reset title and cards
     postList.innerHTML = "";
     postDetailsHeader.innerHTML = "";
+    userDetailsHeader.innerHTML = "";
     btnCollapse.style.display = "none";
     btn.style.display = "inline-block";
 
     let userId = dataIndex[0]?.element?.$context?.raw.x;
     let data = dataIndex[0]?.element?.$context?.raw?.posts;
+    let user = dataIndex[0]?.element?.$context?.raw?.user;
     defaultId = userId;
-
     let listString = arrayToString(data.slice(0, 5));
-    let headerString = `<h3>Posts Details (User Id: ${userId})</h3>`;
+
+    let userHeaderString = `
+              <h3>User Details</h3>
+              <p><strong>Name:</strong> ${user?.name}</p>
+              <p><strong>Email:</strong> ${user?.email}</p>
+              <p><strong>Phone:</strong> ${user?.phone}</p>
+              <p><strong>City:</strong> ${user?.address?.city}</p>
+              <p><strong>Website:</strong> ${user?.website}</p>
+              `;
 
     if (data) {
       postList.insertAdjacentHTML("afterbegin", listString);
-      postDetailsHeader.insertAdjacentHTML("afterbegin", headerString);
+      userDetailsHeader.insertAdjacentHTML("afterbegin", userHeaderString);
     } else {
       defaultPostsList();
     }
   }
+
+  const footer = (tooltipItems) => {
+    let user = tooltipItems[0]?.raw?.user;
+    let div = `Website: ${user?.website}`;
+    return div;
+  };
 
   //chart config
   const config = {
@@ -183,6 +208,11 @@ async function chart(postsArraySorted, labels) {
       plugins: {
         legend: {
           display: false,
+        },
+        tooltip: {
+          callbacks: {
+            footer: footer,
+          },
         },
       },
     },

@@ -34,23 +34,32 @@
       <div class="chart-test_post-wrapper">
         <div class="chart-test_post-background">
           <div class="chart-test_post">
-            <div class="chart-test_post-header"></div>
-            <div class="chart-test_post-details"></div>
+            <div class="chart-test_post-details-wrapper">
+              <div class="chart-test_post-user"></div>
+              <div class="chart-test_post-container">
+                <div class="chart-test_post-header">
+                  <h3>Posts Details</h3>
+                </div>
+                <div class="chart-test_post-details"></div>
+                <div class="chart-test_post-viewmore">
+                  <button
+                    onclick="handleClickViewMore()"
+                    class="chart-test_post-button"
+                  >
+                    View More
+                  </button>
+                  <button
+                    onclick="handleClickCollapse()"
+                    class="
+                      chart-test_post-button chart-test_post-button-collapse
+                    "
+                  >
+                    Collapse
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="chart-test_post-viewmore">
-          <button
-            onclick="handleClickViewMore()"
-            class="chart-test_post-button"
-          >
-            View More
-          </button>
-          <button
-            onclick="handleClickCollapse()"
-            class="chart-test_post-button chart-test_post-button-collapse"
-          >
-            Collapse
-          </button>
         </div>
       </div>
     </div>
