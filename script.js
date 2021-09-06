@@ -133,7 +133,6 @@ async function chart(postsArraySorted, labels, usersData) {
   function clickOnChart(dataIndex) {
     //reset title and cards
     postList.innerHTML = "";
-    postDetailsHeader.innerHTML = "";
     userDetailsHeader.innerHTML = "";
     btnCollapse.style.display = "none";
     btn.style.display = "inline-block";
